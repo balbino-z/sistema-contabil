@@ -1,0 +1,11 @@
+{
+  "name": "sistema-contabil-e2e",
+  "private": true,
+  "scripts": {
+    "test": "playwright test",
+    "test:cloud": "playwright test --project=chromium"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.50.0"
+  }
+}

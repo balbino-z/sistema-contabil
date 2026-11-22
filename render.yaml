@@ -1,0 +1,23 @@
+# Blueprint do Render: serviço web Docker (gratuito). O banco MySQL fica no Aiven.
+services:
+  - type: web
+    name: sistema-contabil
+    runtime: docker
+    plan: free
+    region: oregon
+    healthCheckPath: /Contabil/login.php
+    envVars:
+      - key: DB_HOST
+        sync: false
+      - key: DB_PORT
+        sync: false
+      - key: DB_NAME
+        value: defaultdb
+      - key: DB_USER
+        value: avnadmin
+      - key: DB_PASS
+        sync: false
+      - key: DB_SSL
+        value: "true"
+      - key: DB_SSL_CA_PEM
+        sync: false

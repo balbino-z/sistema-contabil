@@ -1,0 +1,36 @@
+# Ambiente local completo: docker compose up --build  ->  http://localhost:8088
+services:
+  db:
+    image: mysql:8.4
+    environment:
+      MYSQL_DATABASE: sistema_contabil
+      MYSQL_USER: contabil
+      MYSQL_PASSWORD: contabil123
+      MYSQL_ROOT_PASSWORD: root123
+    command: --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
+    volumes:
+      - ./database:/docker-entrypoint-initdb.d:ro
+      - dbdata:/var/lib/mysql
+    ports:
+      - "3307:3306"
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-uroot", "-proot123"]
+      interval: 5s
+      retries: 20
+
+  app:
+    build: .
+    environment:
+      DB_HOST: db
+      DB_PORT: "3306"
+      DB_NAME: sistema_contabil
+      DB_USER: contabil
+      DB_PASS: contabil123
+    ports:
+      - "8088:80"
+    depends_on:
+      db:
+        condition: service_healthy
+
+volumes:
+  dbdata:

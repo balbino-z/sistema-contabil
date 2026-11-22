@@ -8,7 +8,11 @@ $auth = new App\Core\Auth();
 $auth->exigirLogin();
 
 $idEmpresa = $auth->empresaId();
-$idExercicio = 2;
+// Usa o exercício aberto da empresa ativa (antes era fixo em 2).
+$exercicioAtual = $idEmpresa === null
+    ? null
+    : (new App\Repository\ExercicioRepository())->buscarAbertoPorEmpresa($idEmpresa);
+$idExercicio = (int) ($exercicioAtual['id_exercicio'] ?? 0);
 $relatorioRepository = new App\Repository\RelatorioRepository();
 $lancamentoRepository = new App\Repository\LancamentoRepository();
 $resumo = $idEmpresa === null

@@ -9,7 +9,11 @@ $auth->exigirLogin();
 $podeEscrever = $auth->podeEscrever();
 
 $idEmpresa = $auth->empresaId();
-$idExercicio = 2;
+// Usa o exercício aberto da empresa ativa (antes era fixo em 2).
+$exercicioAtual = $idEmpresa === null
+    ? null
+    : (new App\Repository\ExercicioRepository())->buscarAbertoPorEmpresa($idEmpresa);
+$idExercicio = (int) ($exercicioAtual['id_exercicio'] ?? 0);
 $lancamentos = $idEmpresa === null
     ? []
     : (new App\Repository\LancamentoRepository())->listarPorEmpresaEExercicio(

@@ -1,0 +1,8 @@
+.git
+database
+tests
+node_modules
+test-results
+playwright-report
+docker-compose.yml
+*.md
