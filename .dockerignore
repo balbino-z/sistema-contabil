@@ -1,5 +1,4 @@
 .git
-database
 tests
 node_modules
 test-results
