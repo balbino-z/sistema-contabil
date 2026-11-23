@@ -114,3 +114,10 @@ O dashboard e a listagem de lançamentos usam atualmente o identificador de exer
 - Lançamentos só podem ser criados ou editados em um exercício aberto e com data dentro do período do exercício.
 - Estornar um lançamento altera seu status para `cancelado`; ele não é apagado do banco.
 - Não há suíte de testes ou comandos de build definidos no repositório.
+## Deploy na nuvem (Render + Aiven)
+
+A aplicação está publicada em **https://sistema-contabil-1b7w.onrender.com**. O app roda no Render (Docker) e o banco é um MySQL 8.4 gerenciado no Aiven, com conexão SSL. Veja [ENTREGA.md](ENTREGA.md) para arquitetura, usuários de demonstração, testes e roteiro de apresentação.
+
+Execução local com Docker: `docker compose up -d --build` e acesse `http://localhost:8088`. Testes E2E: `cd tests && npm install && npx playwright test`.
+
+Variáveis extras: `DB_SSL` (ativa TLS), `DB_SSL_CA` / `DB_SSL_CA_PEM` (certificado da CA) e `DB_AUTO_INIT` (cria schema e dados iniciais em banco vazio; padrão `true`).

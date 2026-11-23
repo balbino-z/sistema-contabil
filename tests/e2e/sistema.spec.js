@@ -28,6 +28,11 @@ test('raiz redireciona para a tela de login', async ({ page }) => {
   await expect(page.getByLabel('E-mail')).toBeVisible();
 });
 
+test('página protegida sem login volta para o login', async ({ page }) => {
+  await page.goto('/Contabil/dashboard.php');
+  await expect(page).toHaveURL(/\/Contabil\/login\.php/);
+});
+
 test('login com senha errada é recusado', async ({ page }) => {
   await page.goto('/Contabil/login.php');
   await page.getByLabel('E-mail').fill('admin@contabil.com');

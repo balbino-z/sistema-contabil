@@ -144,6 +144,12 @@ final class Auth
     public function exigirLogin(): void
     {
         if (!$this->logado()) {
+            // Visitante sem sessão vai para a tela de login em vez de receber erro 500.
+            if (PHP_SAPI !== 'cli' && !headers_sent()) {
+                header('Location: /Contabil/login.php');
+                exit;
+            }
+
             throw new RuntimeException('É necessário entrar para acessar este recurso.');
         }
     }
